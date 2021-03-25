@@ -13,6 +13,7 @@ protocol Endpoint {
 
 enum NetworkingError: Error {
     case badRequest
+    case unknown
 }
 
 enum HTTPMethod: String {
@@ -59,7 +60,10 @@ extension HTTPRequest {
                 let _httpResponse = response,
                 let httpResponse = _httpResponse as? HTTPURLResponse,
                 let data = data
-            else { print("Unknown error occured."); return }
+            else {
+                callback(.failure(NetworkingError.unknown))
+                return
+            }
             
             #if DEBUG
             print("HTTP Status Code: \(httpResponse.statusCode)")
