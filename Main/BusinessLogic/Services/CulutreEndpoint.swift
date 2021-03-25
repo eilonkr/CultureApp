@@ -33,6 +33,4 @@ extension CultureEndpoint: HTTPRequest {
                 return .get
         }
     }
-    
-    var headers: [String : String] { [:] }
 }
