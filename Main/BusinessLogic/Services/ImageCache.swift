@@ -13,7 +13,6 @@ class ImageCache {
     
     public var placeholderImage: UIImage?
     private let cachedImages = NSCache<NSURL, UIImage>()
-    private var loadingResponses: [NSURL: [(UIImage?) -> Void]] = [:]
     
     public func image(for url: NSURL) -> UIImage? {
         cachedImages.object(forKey: url)
@@ -41,7 +40,7 @@ class ImageCache {
                     error == nil,
                     let image = UIImage(data: data)
                 else {
-                    completion(nil)
+                    completion(self?.placeholderImage)
                     return
                 }
 
